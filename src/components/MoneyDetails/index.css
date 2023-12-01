@@ -1,0 +1,27 @@
+/* Write your CSS here */
+.balance-container {
+  height: 80px;
+  width: 200px;
+  border: 2px solid #84cc16;
+  background-color: #ecfccb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.income-container {
+  border: 2px solid #06b6d4;
+  background-color: #cffafe;
+}
+.expenses-container {
+  border: 2px solid #7c3aed;
+  background-color: #ede9fe;
+}
+.balance2-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.balance-img {
+  height: 50px;
+  width: 50px;
+}

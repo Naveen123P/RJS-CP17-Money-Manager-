@@ -1,0 +1,67 @@
+/* Write your CSS here */
+.bg-container1 {
+  height: 100vh;
+  background-color: aliceblue;
+  padding: 15px 30px;
+}
+.bg-container2-richard {
+  height: 150px;
+  width: 100%;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/money-manager/money-manager-bg.png');
+  background-size: cover;
+  padding: 20px;
+}
+* {
+  color: #475569;
+  font-family: 'Roboto';
+}
+span {
+  color: #0b69ff;
+  font-weight: 600;
+}
+
+.balance-income-expenses-container {
+  display: flex;
+  justify-content: space-between;
+}
+.addTransaction-history-container {
+  display: flex;
+  justify-content: space-between;
+}
+.addTransaction-container {
+  height: 400px;
+  width: 45%;
+  border-radius: 20px;
+  border-bottom: 2px solid #475569;
+  border-left: 2px solid #475569;
+  padding: 20px;
+}
+.form-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.add-button {
+  background-color: #0b69ff;
+  color: aliceblue;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+}
+.history-container {
+  height: 400px;
+  width: 45%;
+  border-radius: 20px;
+  border-bottom: 2px solid #475569;
+  border-right: 2px solid #475569;
+  padding: 20px;
+}
+.headings {
+  display: flex;
+  padding: 5px;
+  justify-content: space-around;
+  font-weight: bold;
+  color: #1e2938;
+  border-bottom: 2px solid #475569;
+  border-left: 2px solid #475569;
+}
