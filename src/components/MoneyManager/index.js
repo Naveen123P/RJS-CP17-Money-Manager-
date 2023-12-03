@@ -26,6 +26,8 @@ class MoneyManager extends Component {
     title: '',
     amount: '',
     type: '',
+    Income: 0,
+    Expenses: 0,
   }
 
   toAddTransaction = event => {
@@ -55,9 +57,10 @@ class MoneyManager extends Component {
       } else {
         expenses += each.amount
       }
-      return {Income: income, Expenses: expenses}
+      return income - expenses
     })
-    return getBalance
+    console.log(getBalance)
+    this.setState({Income: income, Expenses: expenses})
   }
 
   toDeleteTransaction = id => {
@@ -79,9 +82,7 @@ class MoneyManager extends Component {
   }
 
   render() {
-    const {HistoryList} = this.state
-    const getAmountDetails = this.getAmountDetails()
-    const {Income, Expenses} = getAmountDetails
+    const {HistoryList, title, amount, type, Income, Expenses} = this.state
     const Balance = Income - Expenses
     return (
       <div className="bg-container1">
@@ -102,6 +103,7 @@ class MoneyManager extends Component {
                 TITLE
               </label>
               <input
+                value={title}
                 id="TITLE"
                 placeholder="TITLE"
                 type="text"
@@ -111,6 +113,7 @@ class MoneyManager extends Component {
                 AMOUNT
               </label>
               <input
+                value={amount}
                 id="AMOUNT"
                 placeholder="AMOUNT"
                 type="text"
@@ -120,12 +123,17 @@ class MoneyManager extends Component {
                 TYPE
               </label>
               <select
+                value={type}
                 id="TYPE"
                 name="balance-type"
                 onChange={this.onChangeType}
               >
-                <option value="Active">Income</option>
-                <option>Expenses</option>
+                <option value={transactionTypeOptions[0].optionId}>
+                  Income
+                </option>
+                <option value={transactionTypeOptions[1].optionId}>
+                  Expenses
+                </option>
               </select>
               <button className="add-button" type="submit">
                 Add
