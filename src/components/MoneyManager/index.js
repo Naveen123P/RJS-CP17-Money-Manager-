@@ -128,12 +128,9 @@ class MoneyManager extends Component {
                 name="balance-type"
                 onChange={this.onChangeType}
               >
-                <option value={transactionTypeOptions[0].optionId}>
-                  Income
-                </option>
-                <option value={transactionTypeOptions[1].optionId}>
-                  Expenses
-                </option>
+                {transactionTypeOptions.map(each => (
+                  <option value={each.optionId}>{each.displayText}</option>
+                ))}
               </select>
               <button className="add-button" type="submit">
                 Add
