@@ -15,6 +15,7 @@ const TransactionItem = props => {
       <p>{amount}</p>
       <p>{type}</p>
       <button
+        data-testid="delete"
         type="button"
         className="delete-button"
         onClick={deleteTransaction}
