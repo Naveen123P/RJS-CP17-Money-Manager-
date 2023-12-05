@@ -32,6 +32,7 @@ class MoneyManager extends Component {
 
   toAddTransaction = event => {
     event.preventDefault()
+    const {HistoryList} = this.state
     const {title, amount, type} = this.state
     const newTransaction = {
       id: uuidv4(),
@@ -39,34 +40,50 @@ class MoneyManager extends Component {
       amount,
       type,
     }
-    this.setState(prevState => ({
-      HistoryList: [...prevState.HistoryList, newTransaction],
-      title: '',
-      amount: '',
-      type: '',
-    }))
-  }
 
-  getAmountDetails = () => {
-    let income = 0
-    let expenses = 0
-    const {HistoryList} = this.state
-    const getBalance = HistoryList.map(each => {
-      if (each.type === 'Income') {
-        income += each.amount
-      } else {
-        expenses += each.amount
+    if (title !== '' && amount !== '' && type !== '') {
+      if (type === 'EXPENSES') {
+        return this.setState(prevState => ({
+          HistoryList: [...prevState.HistoryList, newTransaction],
+          title: '',
+          amount: '',
+          type: '',
+          Expenses: prevState.Expenses + newTransaction.amount,
+        }))
       }
-      return income - expenses
-    })
-    console.log(getBalance)
-    this.setState({Income: income, Expenses: expenses})
+      return this.setState(prevState => ({
+        HistoryList: [...prevState.HistoryList, newTransaction],
+        title: '',
+        amount: '',
+        type: '',
+        Income: prevState.Income + newTransaction.amount,
+      }))
+    }
+    return HistoryList
   }
 
   toDeleteTransaction = id => {
+    let income = 0
+    let expenses = 0
     const {HistoryList} = this.state
     const filteredTransactions = HistoryList.filter(each => each.id !== id)
-    this.setState({HistoryList: filteredTransactions})
+    this.setState(prevState => ({
+      HistoryList: filteredTransactions,
+      Income: filteredTransactions.map(each => {
+        if (each.type === 'INCOME') {
+          income += each.amount
+          return income
+        }
+        return prevState.Income
+      }),
+      Expenses: filteredTransactions.map(each => {
+        if (each.type === 'EXPENSES') {
+          expenses += each.expenses
+          return expenses
+        }
+        return prevState.expenses
+      }),
+    }))
   }
 
   onChangeTitle = event => {
@@ -92,9 +109,9 @@ class MoneyManager extends Component {
             Welcome back to your <span>Money Manager</span>
           </p>
         </div>
-        <ul className="balance-income-expenses-container">
+        <div className="balance-income-expenses-container">
           <MoneyDetails balance={Balance} income={Income} expenses={Expenses} />
-        </ul>
+        </div>
         <div className="addTransaction-history-container">
           <div className="addTransaction-container">
             <h1>Add Transaction</h1>
@@ -129,7 +146,9 @@ class MoneyManager extends Component {
                 onChange={this.onChangeType}
               >
                 {transactionTypeOptions.map(each => (
-                  <option value={each.optionId}>{each.displayText}</option>
+                  <option value={each.optionId} key={each.displayText}>
+                    {each.displayText}
+                  </option>
                 ))}
               </select>
               <button className="add-button" type="submit">
